@@ -4,6 +4,7 @@ set background=dark
 colorscheme morning
 set number
 set clipboard=unnamed
+set autoindent
 
 " Set the title of the Terminal to the currently open file
 function! SetTerminalTitle()

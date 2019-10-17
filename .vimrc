@@ -4,10 +4,7 @@ set background=dark
 colorscheme morning
 set number
 set clipboard=unnamed
-set autoindent
 set nowrap
-set tabstop=2
-set shiftwidth=2
 set ruler
 
 " Set the title of the Terminal to the currently open file

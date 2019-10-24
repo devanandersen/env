@@ -32,3 +32,12 @@ unset __conda_setup
 # <<< conda init <<<
 export MPLBACKEND="module://itermplot"
 export ITERMPLOT=rv
+# Added by install_latest_perl_osx.pl
+[ -r /Users/devanandersen/.bashrc ] && source /Users/devanandersen/.bashrc
+
+# Shell History
+export HISTSIZE=50000
+export HISTFILESIZE=50000
+export HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'n'}history -a; history -c; history -r"

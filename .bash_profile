@@ -1,5 +1,6 @@
 echo "HALLO."
 alias ls="ls -G"
+alias watch.rb="ruby ~/watch.rb ."
 if [[ -f /opt/dev/dev.sh ]]; then source /opt/dev/dev.sh; fi
 if [ -e /Users/devanandersen/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/devanandersen/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 

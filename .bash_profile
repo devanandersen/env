@@ -14,7 +14,6 @@ gitu () {
 	git remote show origin
 }
 
-TOKEN=a4309608cc40d2c334b697c6bfc6322bc7c87eb6
 # added by Anaconda3 2019.07 installer
 # >>> conda init >>>
 # !! Contents within this block are managed by 'conda init' !!

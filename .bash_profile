@@ -1,6 +1,5 @@
 #export PS1="D \W$ "
 #alias ls="ls -G"
-#alias watch.rb="ruby ~/watch.rb ."
 #alias devserver="rails webpacker:install && dev server"
 #alias rails_reset="rails db:drop && rails db:create && rails db:migrate"
 #alias rails_reset_seed="rails db:drop && rails db:create && rails db:migrate && rails db:seed"

@@ -119,7 +119,7 @@ gitu () {
 
 vim="nvim"
 ls="ls -G"
-alias weather="curl -4 wttr.in"
+weather="curl -4 wttr.in"
 d='dirs -v | head -10'
 1='cd -'
 2='cd -2'

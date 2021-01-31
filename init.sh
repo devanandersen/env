@@ -8,7 +8,7 @@ else
   git clone https://github.com/devanandersen/env.git ~/
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  cp ~/env/.bash_profile ~/.bash_profile
+  cp ~/env/.bashrc ~/.bashrc
   cp ~/env/.zshrc ~/.zshrc
   cp ~/env/.vimrc ~/.vimrc
   rm -rf ~/env

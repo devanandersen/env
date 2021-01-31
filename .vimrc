@@ -14,8 +14,7 @@ Plugin 'junegunn/fzf', { 'do': './install --bin' }
 Plugin 'junegunn/fzf.vim' 
 Plugin 'preservim/nerdtree'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()            " required filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -47,9 +46,9 @@ syntax on
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
 set t_Co=256
-colorscheme morning 
 set number
 set clipboard=unnamed
+set clipboard=unnamedplus
 set autoindent
 set incsearch                        " search as characters are entered
 set hlsearch                         " highlights search text
@@ -61,6 +60,7 @@ set shiftwidth=2
 set expandtab
 set tw=120
 set fo+=t
+set relativenumber
 
 " Set the title of the Terminal to the currently open file
 function! SetTerminalTitle()
@@ -82,6 +82,7 @@ autocmd BufEnter * call SetTerminalTitle()
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " disable arrow keys
+" neovim remote
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -92,8 +93,10 @@ imap <left> <nop>
 imap <right> <nop>
 " map nerd tree to left arrow
 map <left> :NERDTreeToggle
-map <up> :FZF
-map <right> :Rg
+map <up> :vs
+map <down> :term
+map <right> :sp
+:tnoremap <Esc> <C-\><C-n>
 " Enable scroll wheel
 :set mouse=a
 

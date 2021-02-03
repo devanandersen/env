@@ -13,4 +13,4 @@ else
   cp ~/env/.vimrc ~/.vimrc
   rm -rf ~/env
   vim +PluginInstall +qall
-end
+fi

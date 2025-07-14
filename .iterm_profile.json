@@ -1,0 +1,143 @@
+{
+  "Profiles": [
+    {
+      "Name": "Devan's Profile",
+      "Guid": "95CF9A00-9C74-46BE-9D38-BFCCDE4BDB43",
+      "Ansi 0 Color": {
+        "Red Component": 0,
+        "Green Component": 0,
+        "Blue Component": 0
+      },
+      "Ansi 1 Color": {
+        "Red Component": 0.73333334922790527,
+        "Green Component": 0,
+        "Blue Component": 0
+      },
+      "Ansi 2 Color": {
+        "Red Component": 0,
+        "Green Component": 0.73333334922790527,
+        "Blue Component": 0
+      },
+      "Ansi 3 Color": {
+        "Red Component": 0.73333334922790527,
+        "Green Component": 0.73333334922790527,
+        "Blue Component": 0
+      },
+      "Ansi 4 Color": {
+        "Red Component": 0.47135655023157597,
+        "Green Component": 0.55062951905438318,
+        "Blue Component": 0.921234130859375
+      },
+      "Ansi 5 Color": {
+        "Red Component": 0,
+        "Green Component": 0.73333334922790527,
+        "Blue Component": 0.73333334922790527
+      },
+      "Ansi 6 Color": {
+        "Red Component": 0.73333334922790527,
+        "Green Component": 0,
+        "Blue Component": 0.73333334922790527
+      },
+      "Ansi 7 Color": {
+        "Red Component": 0.73333334922790527,
+        "Green Component": 0.73333334922790527,
+        "Blue Component": 0.73333334922790527
+      },
+      "Ansi 8 Color": {
+        "Red Component": 0.3333333432674408,
+        "Green Component": 0.3333333432674408,
+        "Blue Component": 0.3333333432674408
+      },
+      "Ansi 9 Color": {
+        "Red Component": 0.3333333432674408,
+        "Green Component": 1,
+        "Blue Component": 0.3333333432674408
+      },
+      "Ansi 10 Color": {
+        "Red Component": 1,
+        "Green Component": 0.3333333432674408,
+        "Blue Component": 0.3333333432674408
+      },
+      "Ansi 11 Color": {
+        "Red Component": 1,
+        "Green Component": 1,
+        "Blue Component": 0.3333333432674408
+      },
+      "Ansi 12 Color": {
+        "Red Component": 0.3333333432674408,
+        "Green Component": 0.3333333432674408,
+        "Blue Component": 1
+      },
+      "Ansi 13 Color": {
+        "Red Component": 0.48748779296875,
+        "Green Component": 0.19906098674982786,
+        "Blue Component": 0.48748779296875
+      },
+      "Ansi 14 Color": {
+        "Red Component": 1,
+        "Green Component": 0.3333333432674408,
+        "Blue Component": 1
+      },
+      "Ansi 15 Color": {
+        "Red Component": 1,
+        "Green Component": 1,
+        "Blue Component": 1
+      },
+      "Background Color": {
+        "Red Component": 0,
+        "Green Component": 0,
+        "Blue Component": 0
+      },
+      "Selection Color": {
+        "Red Component": 0.70980000495910645,
+        "Green Component": 0.8353000283241272,
+        "Blue Component": 1
+      },
+      "Cursor Color": {
+        "Red Component": 0.73333334922790527,
+        "Green Component": 0.73333334922790527,
+        "Blue Component": 0.73333334922790527
+      },
+      "Cursor Text Color": {
+        "Red Component": 1,
+        "Green Component": 1,
+        "Blue Component": 1
+      },
+      "Foreground Color": {
+        "Red Component": 0.73333334922790527,
+        "Green Component": 0.73333334922790527,
+        "Blue Component": 0.73333334922790527
+      },
+      "Bold Color": {
+        "Red Component": 1,
+        "Green Component": 1,
+        "Blue Component": 1
+      },
+      "Normal Font": "Monaco 12",
+      "Non-ASCII Font": "Monaco 12",
+      "Use Bold Font": true,
+      "Use Italic Font": true,
+      "Working Directory": "/Users/devanandersen",
+      "Scrollback Lines": 10000,
+      "Terminal Type": "xterm-256color",
+      "Visual Bell": true,
+      "Flashing Bell": false,
+      "Silence Bell": false,
+      "Mouse Reporting": true,
+      "Columns": 80,
+      "Rows": 25,
+      "Horizontal Spacing": 1,
+      "Vertical Spacing": 1,
+      "Blinking Cursor": false,
+      "Ambiguous Double Width": false,
+      "Disable Window Resizing": true,
+      "Sync Title": false,
+      "Prompt Before Closing 2": false,
+      "BM Growl": true,
+      "Custom Command": "",
+      "Description": "Default",
+      "Name": "Default",
+      "Guid": "95CF9A00-9C74-46BE-9D38-BFCCDE4BDB43"
+    }
+  ]
+}

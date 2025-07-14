@@ -1,0 +1,5 @@
+# Age key file
+secrets/keys.txt
+
+# Decrypted secrets (just in case)
+*.decrypted

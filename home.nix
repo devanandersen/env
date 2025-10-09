@@ -78,7 +78,14 @@
       worktree_prompt() {
         local current_path="$PWD"
         if [[ "$current_path" =~ /trees/([^/]+) ]]; then
-          echo "%F{cyan}[''${match[1]}]%f "
+          local worktree_name="''${match[1]}"
+          local color_file="/Users/devanandersen/world/trees/$worktree_name/.worktree-color"
+          if [[ -f "$color_file" ]]; then
+            local color=$(cat "$color_file")
+            echo "%F{$color}[$worktree_name]%f "
+          else
+            echo "%F{cyan}[$worktree_name]%f "
+          fi
         fi
       }
 

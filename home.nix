@@ -74,8 +74,19 @@
     };
 
     initContent = ''
-      export PROMPT="%F{magenta}D %1~%f "
-      
+      # Function to extract worktree name from path
+      worktree_prompt() {
+        local current_path="$PWD"
+        if [[ "$current_path" =~ /trees/([^/]+) ]]; then
+          echo "%F{cyan}[''${match[1]}]%f "
+        fi
+      }
+
+      # Set up precmd to update prompt
+      precmd() {
+        export PROMPT="%F{magenta}D%f $(worktree_prompt)%F{magenta}%1~%f "
+      }
+
       PATH=$PATH:/usr/local/sbin
       
       # Initialize zoxide for smarter cd

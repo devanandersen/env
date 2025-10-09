@@ -81,12 +81,16 @@
           local worktree_name="''${match[1]}"
           local color_file="/Users/devanandersen/world/trees/$worktree_name/.worktree-color"
           if [[ -f "$color_file" ]]; then
-            local hex=$(cat "$color_file" | tr -d '#\n')
-            # Convert hex to RGB for terminal
-            local r=$((16#''${hex:0:2}))
-            local g=$((16#''${hex:2:2}))
-            local b=$((16#''${hex:4:2}))
-            echo "%{$(printf '\033[38;2;%d;%d;%dm' $r $g $b)%}[$worktree_name]%{$(printf '\033[0m')%} "
+            local hex=$(cat "$color_file" | tr -d '#\n' | tr -d '\r')
+            # Validate and convert hex to RGB for terminal
+            if [[ ''${#hex} -eq 6 ]]; then
+              local r=$((16#''${hex:0:2}))
+              local g=$((16#''${hex:2:2}))
+              local b=$((16#''${hex:4:2}))
+              echo "%{$(printf '\033[38;2;%d;%d;%dm' $r $g $b)%}[$worktree_name]%{$(printf '\033[0m')%} "
+            else
+              echo "%F{cyan}[$worktree_name]%f "
+            fi
           else
             echo "%F{cyan}[$worktree_name]%f "
           fi
@@ -114,6 +118,15 @@
 
       gitu () {
         git remote show origin
+      }
+
+      reset-worktree-colours () {
+        echo "Resetting worktree colours..."
+        # Remove all cursor workspace files
+        rm -f ~/.cursor-workspaces/*.code-workspace 2>/dev/null
+        # Remove all .worktree-color files
+        find ~/world/trees -maxdepth 2 -name ".worktree-color" -delete 2>/dev/null
+        echo "Done! Run cursor-worktree in each worktree to generate new colours."
       }
 
       [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }

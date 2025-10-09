@@ -81,8 +81,12 @@
           local worktree_name="''${match[1]}"
           local color_file="/Users/devanandersen/world/trees/$worktree_name/.worktree-color"
           if [[ -f "$color_file" ]]; then
-            local color=$(cat "$color_file")
-            echo "%F{$color}[$worktree_name]%f "
+            local hex=$(cat "$color_file" | tr -d '#\n')
+            # Convert hex to RGB for terminal
+            local r=$((16#''${hex:0:2}))
+            local g=$((16#''${hex:2:2}))
+            local b=$((16#''${hex:4:2}))
+            echo "%{$(printf '\033[38;2;%d;%d;%dm' $r $g $b)%}[$worktree_name]%{$(printf '\033[0m')%} "
           else
             echo "%F{cyan}[$worktree_name]%f "
           fi

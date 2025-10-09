@@ -36,6 +36,11 @@
     age
   ];
 
+  home.file.".local/bin/cursor-worktree" = lib.mkIf (builtins.pathExists ./cursor-worktree.sh) {
+    text = builtins.readFile ./cursor-worktree.sh;
+    executable = true;
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -95,6 +100,9 @@
       
       # Ensure Nix takes precedence over everything else
       export PATH="$HOME/.nix-profile/bin:$PATH"
+
+      # Add ~/.local/bin to PATH for home-manager managed scripts
+      export PATH="$HOME/.local/bin:$PATH"
     '';
   };
 

@@ -6,16 +6,17 @@ set -e
 readonly CMD="${CMD:-cursor}"
 readonly WORKSPACE_DIR="${WORKSPACES:-$HOME/.${CMD}-workspaces}"
 
-# Colors for random assignment
+# Colors for random assignment - bright but faded
 readonly RANDOM_COLORS=(
-    "#1a3333" "#47291a" "#3d3d1a" "#2a1a3d" "#3d2a1a"
-    "#1a3d2a" "#3d1a2a" "#2a3d1a" "#1a2a3d" "#3d3d2a"
-    "#2a3d3d" "#3d2a3d" "#1a4747" "#47471a" "#47291a"
-    "#1a4729" "#294729" "#472947" "#294747" "#473329"
-    "#334733" "#473347" "#2e1a3d" "#3d2e1a" "#1a3d2e"
-    "#3d1a2e" "#2e3d1a" "#1a2e3d" "#292952" "#525229"
-    "#295252" "#522929" "#522952" "#295229" "#3a1f4a"
-    "#4a3a1f" "#1f4a3a" "#4a1f3a" "#3a4a1f" "#1f3a4a"
+    "#d1567a"  # Pink
+    "#5ac78f"  # Green
+    "#4a9fd9"  # Blue
+    "#d9b84d"  # Yellow
+    "#d9633d"  # Orange
+    "#42b8c9"  # Cyan
+    "#c94d45"  # Red
+    "#7a9b6b"  # Olive
+    "#8b8b7a"  # Gray-brown
 )
 
 get_color() {
@@ -31,10 +32,15 @@ get_color() {
         *)
             # Generate random color and save it for this worktree
             local color_file="$worktree_path/.worktree-color"
-            if [[ ! -f "$color_file" ]]; then
-                echo "${RANDOM_COLORS[$((RANDOM % ${#RANDOM_COLORS[@]}))]}" > "$color_file"
+            if [[ ! -f "$color_file" && -d "$worktree_path" ]]; then
+                echo "${RANDOM_COLORS[$((RANDOM % ${#RANDOM_COLORS[@]}))]}" > "$color_file" 2>/dev/null || true
             fi
-            cat "$color_file"
+            if [[ -f "$color_file" ]]; then
+                cat "$color_file"
+            else
+                # Fallback if file creation failed
+                echo "${RANDOM_COLORS[$((RANDOM % ${#RANDOM_COLORS[@]}))]}"
+            fi
             ;;
     esac
 }

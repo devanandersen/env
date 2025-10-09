@@ -127,9 +127,12 @@ area=$(extract_area "$target_dir")
 workspace_name="${area:-${target_dir##*/}}_${worktree}"
 workspace_file="$WORKSPACE_DIR/${workspace_name}.code-workspace"
 
+# Get color (this ensures .worktree-color file is created)
+color=$(get_color "$worktree")
+
 # Regenerate workspace if script is newer
 if [[ ! -f "$workspace_file" || "$0" -nt "$workspace_file" ]]; then
-    create_workspace "$target_dir" "$(get_color "$worktree")" "$workspace_file"
+    create_workspace "$target_dir" "$color" "$workspace_file"
 fi
 
 open_editor "$workspace_file" "$@"

@@ -7,19 +7,34 @@ readonly CMD="${CMD:-cursor}"
 readonly WORKSPACE_DIR="${WORKSPACES:-$HOME/.${CMD}-workspaces}"
 
 # Colors for random assignment
-readonly RANDOM_COLORS=("#1a3333" "#47291a" "#3d3d1a")
+readonly RANDOM_COLORS=(
+    "#1a3333" "#47291a" "#3d3d1a" "#2a1a3d" "#3d2a1a"
+    "#1a3d2a" "#3d1a2a" "#2a3d1a" "#1a2a3d" "#3d3d2a"
+    "#2a3d3d" "#3d2a3d" "#1a4747" "#47471a" "#47291a"
+    "#1a4729" "#294729" "#472947" "#294747" "#473329"
+    "#334733" "#473347" "#2e1a3d" "#3d2e1a" "#1a3d2e"
+    "#3d1a2e" "#2e3d1a" "#1a2e3d" "#292952" "#525229"
+    "#295252" "#522929" "#522952" "#295229" "#3a1f4a"
+    "#4a3a1f" "#1f4a3a" "#4a1f3a" "#3a4a1f" "#1f3a4a"
+)
 
 get_color() {
     local worktree="$1"
+    local worktree_path="/Users/devanandersen/world/trees/$worktree"
+
     # Use predefined colors for specific worktree types
     case "$worktree" in
         secondary)  echo "#3d1a3d" ;;
         reference)     echo "#1a3d1a" ;;
         review)  echo "#1a2847" ;;
         hotfix)     echo "#3d1a1a" ;;
-        *)  # Deterministic random color based on worktree name
-            local seed=$(echo -n "$worktree" | cksum | cut -d' ' -f1)
-            echo "${RANDOM_COLORS[$((seed % ${#RANDOM_COLORS[@]}))]}"
+        *)
+            # Generate random color and save it for this worktree
+            local color_file="$worktree_path/.worktree-color"
+            if [[ ! -f "$color_file" ]]; then
+                echo "${RANDOM_COLORS[$((RANDOM % ${#RANDOM_COLORS[@]}))]}" > "$color_file"
+            fi
+            cat "$color_file"
             ;;
     esac
 }

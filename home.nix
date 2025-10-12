@@ -41,6 +41,9 @@
     executable = true;
   };
 
+  # Hammerspoon configuration files
+  home.file.".hammerspoon/init.lua".source = ./hammerspoon/init.lua;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;

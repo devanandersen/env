@@ -51,10 +51,21 @@
   '';
 
   # Karabiner-Elements configuration
-  home.file.".config/karabiner/karabiner.json".source = ./karabiner/karabiner.json;
+  home.file.".config/karabiner/karabiner.json" = {
+    source = ./karabiner/karabiner.json;
+    force = true;
+  };
 
-  # iTerm2 Dynamic Profile
-  home.file."Library/Application Support/iTerm2/DynamicProfiles/profile.json".source = ./.iterm_profile.json;
+  # iTerm2 Dynamic Profile - only link if not already present
+  home.activation.linkItermProfile = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ITERM_PROFILE_DIR="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+    ITERM_PROFILE_PATH="$ITERM_PROFILE_DIR/profile.json"
+
+    if [[ ! -e "$ITERM_PROFILE_PATH" ]]; then
+      $DRY_RUN_CMD mkdir -p "$ITERM_PROFILE_DIR"
+      $DRY_RUN_CMD ln -s "$HOME/Documents/env/.iterm_profile.json" "$ITERM_PROFILE_PATH"
+    fi
+  '';
 
   programs.zsh = {
     enable = true;

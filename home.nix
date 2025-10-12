@@ -65,7 +65,8 @@
       get_dns = "scutil --dns";
       code = "cursor";
       gentags = "ctags -R --exclude=.git --exclude=log *";
-      
+      nix-update = "cd ~/Documents/env && nix run home-manager/master -- switch --flake .#devan && cd -";
+
       # Mac-only aliases (will only work on Darwin)
       dsgone = "defaults write com.apple.desktopservices DSDontWriteNetworkStores false";
       cpucheck = "pmset -g thermlog";
@@ -303,4 +304,27 @@
     enable = true;
     nix-direnv.enable = true;
   };
+
+  # Install Homebrew if not present (macOS only)
+  home.activation.installHomebrew = lib.mkIf pkgs.stdenv.isDarwin (
+    lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [[ ! -x /opt/homebrew/bin/brew ]]; then
+        echo "Homebrew not found, installing..."
+        $DRY_RUN_CMD /bin/bash -c "$(${pkgs.curl}/bin/curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || echo "Homebrew installation failed"
+      fi
+    ''
+  );
+
+  # Homebrew cask installation (macOS only)
+  home.activation.installHomebrewCasks = lib.mkIf pkgs.stdenv.isDarwin (
+    lib.hm.dag.entryAfter ["installHomebrew"] ''
+      if [[ -x /opt/homebrew/bin/brew ]]; then
+        echo "Installing/upgrading Hammerspoon via Homebrew..."
+        $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask --no-quarantine hammerspoon 2>&1 || echo "Hammerspoon installation failed or already installed"
+        $DRY_RUN_CMD /opt/homebrew/bin/brew upgrade --cask hammerspoon 2>&1 || true
+      else
+        echo "Homebrew not found at /opt/homebrew/bin/brew, skipping Hammerspoon installation"
+      fi
+    ''
+  );
 }

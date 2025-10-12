@@ -35,6 +35,8 @@ nix run home-manager/master -- switch --flake .#devan
 nix run home-manager/master -- switch --flake .#devanandersen@x86_64-linux
 ```
 
+After the initial installation on Apple Silicon, you can use the `nix-update` alias from anywhere to apply configuration changes.
+
 ## What's Included
 
 ### Shell & Terminal

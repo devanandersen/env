@@ -34,6 +34,7 @@
     eza
     zoxide
     age
+    iterm2
   ];
 
   home.file.".local/bin/cursor-worktree" = lib.mkIf (builtins.pathExists ./cursor-worktree.sh) {
@@ -51,6 +52,9 @@
 
   # Karabiner-Elements configuration
   home.file.".config/karabiner/karabiner.json".source = ./karabiner/karabiner.json;
+
+  # iTerm2 Dynamic Profile
+  home.file."Library/Application Support/iTerm2/DynamicProfiles/profile.json".source = ./.iterm_profile.json;
 
   programs.zsh = {
     enable = true;

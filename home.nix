@@ -41,11 +41,13 @@
     executable = true;
   };
 
-  # Hammerspoon configuration files
-  home.file.".hammerspoon" = {
-    source = ./hammerspoon;
-    recursive = true;
-  };
+  # Hammerspoon configuration - direct symlink for live editing
+  home.activation.linkHammerspoon = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [[ ! -L "$HOME/.hammerspoon" ]]; then
+      $DRY_RUN_CMD rm -rf "$HOME/.hammerspoon"
+      $DRY_RUN_CMD ln -s "$HOME/Documents/env/hammerspoon" "$HOME/.hammerspoon"
+    fi
+  '';
 
   programs.zsh = {
     enable = true;

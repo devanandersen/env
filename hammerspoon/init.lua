@@ -46,9 +46,10 @@ end)
 -- App launcher
 hs.hotkey.bind(hyper, "M", focusOrLaunch("Spotify"))
 hs.hotkey.bind(hyper, "T", focusOrLaunch("iTerm2"))
+hs.hotkey.bind(hyper, "C", focusOrLaunch("Cursor"))
 
--- Cycle through Chrome windows
-hs.hotkey.bind(hyper, "C", function()
+-- Cycle through browser windows
+hs.hotkey.bind(hyper, "B", function()
   local chrome = hs.application.find("Google Chrome")
   if not chrome then
     hs.application.open("Google Chrome")

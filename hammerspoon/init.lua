@@ -47,6 +47,8 @@ end)
 hs.hotkey.bind(hyper, "M", focusOrLaunch("Spotify"))
 hs.hotkey.bind(hyper, "T", focusOrLaunch("iTerm2"))
 hs.hotkey.bind(hyper, "C", focusOrLaunch("Cursor"))
+hs.hotkey.bind(hyper, "S", focusOrLaunch("Slack"))
+hs.hotkey.bind(hyper, "D", focusOrLaunch("Discord"))
 
 -- Cycle through browser windows
 hs.hotkey.bind(hyper, "B", function()

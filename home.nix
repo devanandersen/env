@@ -42,7 +42,10 @@
   };
 
   # Hammerspoon configuration files
-  home.file.".hammerspoon/init.lua".source = ./hammerspoon/init.lua;
+  home.file.".hammerspoon" = {
+    source = ./hammerspoon;
+    recursive = true;
+  };
 
   programs.zsh = {
     enable = true;

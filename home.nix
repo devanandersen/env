@@ -49,6 +49,9 @@
     fi
   '';
 
+  # Karabiner-Elements configuration
+  home.file.".config/karabiner/karabiner.json".source = ./karabiner/karabiner.json;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -327,11 +330,13 @@
   home.activation.installHomebrewCasks = lib.mkIf pkgs.stdenv.isDarwin (
     lib.hm.dag.entryAfter ["installHomebrew"] ''
       if [[ -x /opt/homebrew/bin/brew ]]; then
-        echo "Installing/upgrading Hammerspoon via Homebrew..."
-        $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask --no-quarantine hammerspoon 2>&1 || echo "Hammerspoon installation failed or already installed"
-        $DRY_RUN_CMD /opt/homebrew/bin/brew upgrade --cask hammerspoon 2>&1 || true
+        echo "Installing/upgrading Homebrew casks..."
+        $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask --no-quarantine hammerspoon || true
+        $DRY_RUN_CMD /opt/homebrew/bin/brew upgrade --cask hammerspoon 2>/dev/null || true
+        $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask karabiner-elements || true
+        $DRY_RUN_CMD /opt/homebrew/bin/brew upgrade --cask karabiner-elements 2>/dev/null || true
       else
-        echo "Homebrew not found at /opt/homebrew/bin/brew, skipping Hammerspoon installation"
+        echo "Homebrew not found at /opt/homebrew/bin/brew, skipping cask installation"
       fi
     ''
   );

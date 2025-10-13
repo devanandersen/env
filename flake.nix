@@ -13,22 +13,28 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, ... }: {
-    homeConfigurations = {
-      "devan" = home-manager.lib.homeManagerConfiguration {
+  outputs = { self, nixpkgs, home-manager, agenix, ... }:
+    let
+      mkDarwinConfig = username: home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-        modules = [ 
+        modules = [
           ./home.nix
           agenix.homeManagerModules.default
+          { home.username = username; }
         ];
       };
-      "devanandersen@x86_64-linux" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        modules = [ 
-          ./home.nix
-          agenix.homeManagerModules.default
-        ];
+    in {
+      homeConfigurations = {
+        "devan" = mkDarwinConfig "devan";
+        "devanandersen" = mkDarwinConfig "devanandersen";
+        "devanandersen@x86_64-linux" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            ./home.nix
+            agenix.homeManagerModules.default
+            { home.username = "devanandersen"; }
+          ];
+        };
       };
     };
-  };
 }

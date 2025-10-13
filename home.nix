@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  home.username = "devanandersen";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/devanandersen" else "/home/devanandersen";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${config.home.username}" else "/home/${config.home.username}";
   home.stateVersion = "24.05";
 
   programs.home-manager.enable = true;
@@ -91,7 +90,7 @@
       get_dns = "scutil --dns";
       code = "cursor";
       gentags = "ctags -R --exclude=.git --exclude=log *";
-      nix-update = "cd ~/Documents/env && nix run home-manager/master -- switch --flake .#devan && cd -";
+      nix-update = "cd ~/Documents/env && nix run home-manager/master -- switch --flake .#$USER && cd -";
 
       # Mac-only aliases (will only work on Darwin)
       dsgone = "defaults write com.apple.desktopservices DSDontWriteNetworkStores false";
@@ -106,7 +105,7 @@
         local current_path="$PWD"
         if [[ "$current_path" =~ /trees/([^/]+) ]]; then
           local worktree_name="''${match[1]}"
-          local color_file="/Users/devanandersen/world/trees/$worktree_name/.worktree-color"
+          local color_file="${config.home.homeDirectory}/world/trees/$worktree_name/.worktree-color"
           if [[ -f "$color_file" ]]; then
             local hex=$(cat "$color_file" | tr -d '#\n' | tr -d '\r')
             # Validate and convert hex to RGB for terminal

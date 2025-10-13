@@ -90,7 +90,6 @@
       get_dns = "scutil --dns";
       code = "cursor";
       gentags = "ctags -R --exclude=.git --exclude=log *";
-      nix-update = "cd ~/Documents/env && nix run home-manager/master -- switch --flake .#$USER && cd -";
 
       # Mac-only aliases (will only work on Darwin)
       dsgone = "defaults write com.apple.desktopservices DSDontWriteNetworkStores false";
@@ -153,6 +152,10 @@
         # Remove all .worktree-color files
         find ~/world/trees -maxdepth 2 -name ".worktree-color" -delete 2>/dev/null
         echo "Done! Run cursor-worktree in each worktree to generate new colours."
+      }
+
+      nix-update () {
+        cd ~/Documents/env && nix run home-manager/master -- switch --flake ".#$USER" && cd -
       }
 
       [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }

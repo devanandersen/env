@@ -79,6 +79,22 @@ hs.hotkey.bind(hyper, "H", function()
   end
 end)
 
+-- Center window
+hs.hotkey.bind(hyper, "E", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    win:centerOnScreen()
+  end
+end)
+
+-- Fullscreen window
+hs.hotkey.bind(hyper, "F", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    win:toggleFullScreen()
+  end
+end)
+
 -- Helper function to move window to monitor
 local function moveToMonitor(monitorIndex)
   return function()

@@ -46,9 +46,29 @@ end)
 -- App launcher
 hs.hotkey.bind(hyper, "M", focusOrLaunch("Spotify"))
 hs.hotkey.bind(hyper, "T", focusOrLaunch("iTerm2"))
-hs.hotkey.bind(hyper, "C", focusOrLaunch("Cursor"))
 hs.hotkey.bind(hyper, "S", focusOrLaunch("Slack"))
 hs.hotkey.bind(hyper, "D", focusOrLaunch("Discord"))
+
+-- Cycle through Cursor windows
+hs.hotkey.bind(hyper, "C", function()
+  local cursor = hs.application.find("Cursor")
+  if not cursor then
+    hs.application.open("Cursor")
+    return
+  end
+
+  local focusedWindow = hs.window.focusedWindow()
+  if focusedWindow and focusedWindow:application() == cursor then
+    -- Cursor is already focused, cycle to next window
+    local windows = cursor:allWindows()
+    if #windows > 1 then
+      windows[2]:focus()
+    end
+  else
+    -- Cursor not focused, focus it
+    focusApp(cursor)
+  end
+end)
 
 -- Cycle through browser windows
 hs.hotkey.bind(hyper, "B", function()

@@ -38,6 +38,45 @@ local function focusOrLaunch(appName)
   end
 end
 
+-- Helper to cycle through windows of an app
+local function cycleAppWindows(appName)
+  return function()
+    local app = hs.application.find(appName)
+    if not app then
+      hs.application.open(appName)
+      return
+    end
+
+    -- Get all windows sorted by ID (stable order)
+    local windows = app:allWindows()
+    table.sort(windows, function(a, b) return a:id() < b:id() end)
+
+    if #windows == 0 then
+      return
+    end
+
+    if #windows == 1 then
+      windows[1]:focus()
+      return
+    end
+
+    local focusedWindow = hs.window.focusedWindow()
+    if focusedWindow and focusedWindow:application() == app then
+      -- Find current window and go to next one
+      for i, win in ipairs(windows) do
+        if win:id() == focusedWindow:id() then
+          local nextIndex = (i % #windows) + 1
+          windows[nextIndex]:focus()
+          return
+        end
+      end
+    end
+
+    -- App not focused, focus first window
+    windows[1]:focus()
+  end
+end
+
 -- Reload config on save
 hs.hotkey.bind(hyper, "R", function()
   hs.reload()
@@ -49,47 +88,9 @@ hs.hotkey.bind(hyper, "T", focusOrLaunch("iTerm2"))
 hs.hotkey.bind(hyper, "S", focusOrLaunch("Slack"))
 hs.hotkey.bind(hyper, "D", focusOrLaunch("Discord"))
 
--- Cycle through Cursor windows
-hs.hotkey.bind(hyper, "C", function()
-  local cursor = hs.application.find("Cursor")
-  if not cursor then
-    hs.application.open("Cursor")
-    return
-  end
-
-  local focusedWindow = hs.window.focusedWindow()
-  if focusedWindow and focusedWindow:application() == cursor then
-    -- Cursor is already focused, cycle to next window
-    local windows = cursor:allWindows()
-    if #windows > 1 then
-      windows[2]:focus()
-    end
-  else
-    -- Cursor not focused, focus it
-    focusApp(cursor)
-  end
-end)
-
--- Cycle through browser windows
-hs.hotkey.bind(hyper, "B", function()
-  local chrome = hs.application.find("Google Chrome")
-  if not chrome then
-    hs.application.open("Google Chrome")
-    return
-  end
-
-  local focusedWindow = hs.window.focusedWindow()
-  if focusedWindow and focusedWindow:application() == chrome then
-    -- Chrome is already focused, cycle to next window
-    local windows = chrome:allWindows()
-    if #windows > 1 then
-      windows[2]:focus()
-    end
-  else
-    -- Chrome not focused, focus it
-    focusApp(chrome)
-  end
-end)
+-- Cycle through app windows
+hs.hotkey.bind(hyper, "C", cycleAppWindows("Cursor"))
+hs.hotkey.bind(hyper, "B", cycleAppWindows("Google Chrome"))
 
 -- Minimize focused window
 hs.hotkey.bind(hyper, "H", function()

@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
   home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${config.home.username}" else "/home/${config.home.username}";
   home.stateVersion = "24.05";
 
@@ -35,6 +36,22 @@
     age
     iterm2
   ];
+
+  # Install claude-code separately to avoid collision
+  home.extraProfileCommands = ''
+    if [[ -d "$out/bin" ]]; then
+      ln -sf ${pkgs.claude-code}/bin/claude $out/bin/claude-nix
+    fi
+  '';
+  
+  home.sessionVariables = {
+    # Make claude-nix available as claude
+    CLAUDE_PATH = "${pkgs.claude-code}/bin/claude";
+  };
+  
+  home.shellAliases = {
+    claude = "claude-nix";
+  };
 
   home.file.".local/bin/cursor-worktree" = lib.mkIf (builtins.pathExists ./cursor-worktree.sh) {
     text = builtins.readFile ./cursor-worktree.sh;

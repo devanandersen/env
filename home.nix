@@ -347,11 +347,19 @@
   home.activation.installHomebrewCasks = lib.mkIf pkgs.stdenv.isDarwin (
     lib.hm.dag.entryAfter ["installHomebrew"] ''
       if [[ -x /opt/homebrew/bin/brew ]]; then
-        echo "Installing/upgrading Homebrew casks..."
-        $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask --no-quarantine hammerspoon || true
-        $DRY_RUN_CMD /opt/homebrew/bin/brew upgrade --cask hammerspoon 2>/dev/null || true
-        $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask karabiner-elements || true
-        $DRY_RUN_CMD /opt/homebrew/bin/brew upgrade --cask karabiner-elements 2>/dev/null || true
+        echo "Checking Homebrew casks..."
+
+        # Only install hammerspoon if not already installed
+        if ! /opt/homebrew/bin/brew list --cask hammerspoon &>/dev/null; then
+          echo "Installing hammerspoon..."
+          $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask --no-quarantine hammerspoon || true
+        fi
+
+        # Only install karabiner-elements if not already installed
+        if ! /opt/homebrew/bin/brew list --cask karabiner-elements &>/dev/null; then
+          echo "Installing karabiner-elements..."
+          $DRY_RUN_CMD /opt/homebrew/bin/brew install --cask karabiner-elements || true
+        fi
       else
         echo "Homebrew not found at /opt/homebrew/bin/brew, skipping cask installation"
       fi

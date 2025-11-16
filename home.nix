@@ -29,6 +29,7 @@
     curl
     nodejs
     ruby
+    rubyPackages.rails
     jq
     bat
     eza

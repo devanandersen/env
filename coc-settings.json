@@ -1,0 +1,6 @@
+{
+  "solargraph.checkGemVersion": false,
+  "solargraph.autoUpdate": false,
+  "coc.preferences.extensionUpdateCheck": "never",
+  "suggest.autoTrigger": "always"
+}

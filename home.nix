@@ -30,6 +30,7 @@
     nodejs
     ruby
     rubyPackages.rails
+    rubyPackages.solargraph
     jq
     bat
     eza
@@ -83,6 +84,9 @@
       $DRY_RUN_CMD ln -s "$HOME/Documents/env/.iterm_profile.json" "$ITERM_PROFILE_PATH"
     fi
   '';
+
+  # CoC configuration
+  home.file.".config/nvim/coc-settings.json".source = ./coc-settings.json;
 
   programs.zsh = {
     enable = true;
@@ -203,13 +207,17 @@
       nerdtree
       vim-go
       coc-nvim
+      coc-snippets
       vim-rails
+      vim-ruby
       coc-solargraph
     ];
 
     extraConfig = ''
       set nocompatible
-      filetype plugin indent on
+      filetype on
+      filetype plugin on
+      filetype indent on
       
       let mapleader = " "
       
@@ -217,10 +225,17 @@
       set packpath^=/nix/store/*/vim-pack-dir
       command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
-      syntax on
+      syntax enable
+      colorscheme habamax
+      autocmd BufNewFile,BufRead *.rb setlocal filetype=ruby
+      autocmd BufNewFile,BufRead *.rake setlocal filetype=ruby
+      autocmd BufNewFile,BufRead *.eru setlocal filetype=ruby
+      autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
+      autocmd BufNewFile,BufRead Rakefile setlocal filetype=ruby
       autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
       autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
       set t_Co=256
+      set termguicolors
       set number
       set relativenumber
       set clipboard=unnamed
@@ -280,20 +295,8 @@
         set signcolumn=yes
       endif
 
-      inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() :
-            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',""])\<CR>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-
+      inoremap <silent><expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
       inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-      function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-      endfunction
-
-      let g:coc_snippet_next = '<tab>'
 
       if has('nvim')
         inoremap <silent><expr> <c-space> coc#refresh()
@@ -304,7 +307,9 @@
       inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                                     \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-      let g:coc_global_extensions = ['coc-solargraph']
+      let g:coc_global_extensions = ['coc-solargraph', 'coc-snippets']
+      let g:coc_extension_auto_update = 0
+      let g:solargraph_disable_auto_update = 1
       let g:snipMate = { 'snippet_version' : 1 }
       :command Rdef call CocAction('jumpDefinition')
       set tags=./tags;

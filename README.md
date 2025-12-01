@@ -4,11 +4,15 @@ Reproducible development environment using Nix flakes with modern tools and smar
 
 ## Prerequisites
 
-Install Nix on your system:
+Install Nix and Git on your system:
+
+Nix
 
 ```bash
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
+
+Git - https://git-scm.com/install/
 
 ## Setup
 
@@ -18,12 +22,25 @@ git clone https://github.com/devanandersen/env.git ~/env
 cd ~/env
 ```
 
-2. Enable flakes (add to `~/.config/nix/nix.conf`):
+2. Enable flakes:
+
+Add 
+
 ```
 experimental-features = nix-command flakes
 ```
 
+to whatever is existing, see
+
+```
+cat ~/.config/nix/nix.conf
+cat /etc/nix/nix.conf
+cat /nix/var/nix/profiles/default/etc/nix/nix.conf
+```
+
 3. Apply the configuration:
+
+`sudo systemctl restart nix-daemon`
 
 **For Mac (Apple Silicon):**
 ```bash
@@ -32,7 +49,7 @@ nix run home-manager/master -- switch --flake .#devan
 
 **For Linux:**
 ```bash
-nix run home-manager/master -- switch --flake .#devanandersen@x86_64-linux
+  nix run home-manager/master -- switch --flake .#devanandersen@x86_64-linux
 ```
 
 After the initial installation on Apple Silicon, you can use the `nix-update` alias from anywhere to apply configuration changes.

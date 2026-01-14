@@ -42,6 +42,10 @@ cat /nix/var/nix/profiles/default/etc/nix/nix.conf
 
 `sudo systemctl restart nix-daemon`
 
+For mac
+
+`sudo launchctl kickstart -k system/org.nixos.nix-daemon`
+
 **For Mac (Apple Silicon):**
 ```bash
 nix run home-manager/master -- switch --flake .#devan

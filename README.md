@@ -4,7 +4,7 @@ Reproducible development environment using Nix flakes with modern tools and smar
 
 ## Prerequisites
 
-Install Nix and Git on your system:
+Install Nix, Git, Brew on your system:
 
 Nix
 
@@ -13,6 +13,8 @@ sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
 Git - https://git-scm.com/install/
+
+Brew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
 ## Setup
 

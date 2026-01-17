@@ -39,22 +39,6 @@
     iterm2
   ];
 
-  # Install claude-code separately to avoid collision
-  home.extraProfileCommands = ''
-    if [[ -d "$out/bin" ]]; then
-      ln -sf ${pkgs.claude-code}/bin/claude $out/bin/claude-nix
-    fi
-  '';
-  
-  home.sessionVariables = {
-    # Make claude-nix available as claude
-    CLAUDE_PATH = "${pkgs.claude-code}/bin/claude";
-  };
-  
-  home.shellAliases = {
-    claude = "claude-nix";
-  };
-
   home.file.".local/bin/cursor-worktree" = lib.mkIf (builtins.pathExists ./cursor-worktree.sh) {
     text = builtins.readFile ./cursor-worktree.sh;
     executable = true;

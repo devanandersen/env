@@ -167,7 +167,12 @@
       [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
       
       [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
-      
+
+      # tec profile (after Homebrew so tec tools take precedence)
+      if [[ -x "$HOME/.local/state/tec/profiles/base/current/global/init" ]]; then
+        eval "$("$HOME/.local/state/tec/profiles/base/current/global/init" zsh)"
+      fi
+
       # Ensure Nix takes precedence over everything else
       export PATH="$HOME/.nix-profile/bin:$PATH"
 

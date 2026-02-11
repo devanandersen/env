@@ -69,8 +69,15 @@
     fi
   '';
 
-  # Claude Code commands
-  home.file.".claude/commands/review-pr.md".source = ./claude/commands/review-pr.md;
+  # Claude Code commands - symlink for live editing
+  home.activation.linkClaudeCommands = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    CLAUDE_COMMANDS="$HOME/.claude/commands"
+    if [[ ! -L "$CLAUDE_COMMANDS" ]]; then
+      $DRY_RUN_CMD rm -rf "$CLAUDE_COMMANDS"
+      $DRY_RUN_CMD mkdir -p "$HOME/.claude"
+      $DRY_RUN_CMD ln -s "$HOME/Documents/env/.claude/commands" "$CLAUDE_COMMANDS"
+    fi
+  '';
 
   # CoC configuration
   home.file.".config/nvim/coc-settings.json".source = ./coc-settings.json;

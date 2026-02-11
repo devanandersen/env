@@ -69,6 +69,9 @@
     fi
   '';
 
+  # Claude Code commands
+  home.file.".claude/commands/review-pr.md".source = ./claude/commands/review-pr.md;
+
   # CoC configuration
   home.file.".config/nvim/coc-settings.json".source = ./coc-settings.json;
 

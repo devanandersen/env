@@ -194,6 +194,10 @@
 
       # Add ~/.local/bin to PATH for home-manager managed scripts
       export PATH="$HOME/.local/bin:$PATH"
+
+      if command -v herdr >/dev/null 2>&1; then
+        herdr
+      fi
     '';
   };
 

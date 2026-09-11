@@ -44,6 +44,14 @@
     executable = true;
   };
 
+  home.file.".local/bin/code" = lib.mkIf pkgs.stdenv.isDarwin {
+    text = ''
+      #!/bin/sh
+      exec "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" "$@"
+    '';
+    executable = true;
+  };
+
   # Hammerspoon configuration - direct symlink for live editing
   home.activation.linkHammerspoon = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if [[ ! -L "$HOME/.hammerspoon" ]]; then

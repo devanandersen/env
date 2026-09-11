@@ -94,7 +94,6 @@ After the initial installation on Apple Silicon, you can use the `nix-update` al
 - `ls` → `eza` (modern ls)
 - `cat` → `bat` (syntax highlighted cat)
 - `vim` → `nvim`
-- `code` → `cursor`
 - `z <dir>` → smart directory jumping
 
 ### Vim Key Bindings

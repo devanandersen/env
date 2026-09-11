@@ -39,8 +39,8 @@
     iterm2
   ];
 
-  home.file.".local/bin/cursor-worktree" = lib.mkIf (builtins.pathExists ./cursor-worktree.sh) {
-    text = builtins.readFile ./cursor-worktree.sh;
+  home.file.".local/bin/vscode-worktree" = lib.mkIf (builtins.pathExists ./vscode-worktree.sh) {
+    text = builtins.readFile ./vscode-worktree.sh;
     executable = true;
   };
 
@@ -104,7 +104,6 @@
       weather = "curl -4 wttr.in";
       clear_dns = "sudo killall -HUP mDNSResponder; echo dns cleared successfully";
       get_dns = "scutil --dns";
-      code = "cursor";
       gentags = "ctags -R --exclude=.git --exclude=log *";
 
       # Mac-only aliases (will only work on Darwin)
@@ -163,11 +162,10 @@
 
       reset-worktree-colours () {
         echo "Resetting worktree colours..."
-        # Remove all cursor workspace files
-        rm -f ~/.cursor-workspaces/*.code-workspace 2>/dev/null
+        rm -f ~/.code-workspaces/*.code-workspace 2>/dev/null
         # Remove all .worktree-color files
         find ~/world/trees -maxdepth 2 -name ".worktree-color" -delete 2>/dev/null
-        echo "Done! Run cursor-worktree in each worktree to generate new colours."
+        echo "Done! Run vscode-worktree in each worktree to generate new colours."
       }
 
       nix-update () {

@@ -89,7 +89,7 @@ hs.hotkey.bind(hyper, "S", focusOrLaunch("Slack"))
 hs.hotkey.bind(hyper, "D", focusOrLaunch("Discord"))
 
 -- Cycle through app windows
-hs.hotkey.bind(hyper, "C", cycleAppWindows("Cursor"))
+hs.hotkey.bind(hyper, "C", cycleAppWindows("Visual Studio Code"))
 hs.hotkey.bind(hyper, "B", cycleAppWindows("Google Chrome"))
 
 -- Minimize focused window

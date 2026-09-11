@@ -1,9 +1,8 @@
 #!/bin/bash
-# Open Cursor with colors based on worktree path
 
 set -e
 
-readonly CMD="${CMD:-cursor}"
+readonly CMD="${CMD:-code}"
 readonly WORKSPACE_DIR="${WORKSPACES:-$HOME/.${CMD}-workspaces}"
 
 # Colors for random assignment - bright but faded
@@ -65,7 +64,7 @@ open_editor() {
     if command -v "$CMD" &>/dev/null; then
         "$CMD" "$@"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
-        open -a "Cursor" "$@"
+        open -a "Visual Studio Code" "$@"
     else
         echo "Error: ${CMD} command not found" >&2
         exit 1
